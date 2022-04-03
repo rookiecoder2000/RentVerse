@@ -12,12 +12,17 @@ class textField extends StatelessWidget {
     return Container(
       width: _width,
       height: 40,
-      child: TextField(
-        decoration: InputDecoration(
-          labelText: _textFieldLabel,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+      child: Container(
+        height: 40,
+        child: TextField(
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 15),
+          decoration: InputDecoration(
+              focusColor: colorScheme.activeStateMain,
+              contentPadding: EdgeInsets.symmetric(vertical: 10),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(7.0))),
         ),
-        // onChanged: ,
       ),
     );
   }

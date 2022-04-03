@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rentverse1/content.dart';
-import 'package:rentverse1/login.dart';
+import 'package:rentverse1/pages/login/view/login.dart';
 import 'package:rentverse1/misc/colors.dart';
 import 'package:rentverse1/misc/fontRegular.dart';
 import 'package:rentverse1/misc/fonts.dart';
@@ -97,12 +98,7 @@ class _welcomePageState extends State<welcomePage> {
                 ),
                 onPressed: () {
                   if (currentIndex == contents.length - 1) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => LoginPage(),
-                      ),
-                    );
+                    Get.off(LoginPage());
                   }
                   _controller.nextPage(
                     duration: Duration(milliseconds: 100),

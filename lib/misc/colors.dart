@@ -11,4 +11,5 @@ class colorScheme {
   static final Color grey = Colors.grey;
   static final Color inputFieldsLabel = Color.fromRGBO(102, 91, 91, 1.0);
   static final Color interface = Color.fromRGBO(108, 99, 255, 1);
+  static final Color purpleMuch = Color.fromRGBO(76, 12, 154, 1);
 }

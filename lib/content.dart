@@ -9,18 +9,18 @@ class UnbordingContent {
 
 List<UnbordingContent> contents = [
   UnbordingContent(
-      title: 'Rent A Cozy Place',
+      title: 'Find A Cozy Place',
       image: 'assets/images/Sweethome.svg',
       description:
-          "Find a boarding house of your choice from verified Landlords"),
+          "Become a renter and find a boarding house of your choice from verified Landlords"),
   UnbordingContent(
-      title: 'Place yours for Rent',
-      image: 'assets/images/Sweethome.svg',
+      title: 'Earn money, Become a Landlord',
+      image: 'assets/images/Money.svg',
       description:
-          "Offer your boarding house units for rent to verified individuals "),
+          "Add your boarding house units in our listing for rent to verified individuals "),
   UnbordingContent(
       title: 'One-stop Renting Application',
-      image: 'assets/images/Sweethome.svg',
-      description: "Manage your units efficiently."
-          "Set reminders for your due bills"),
+      image: 'assets/images/Charts.svg',
+      description:
+          "Manage your units efficiently, and standout from the business competition"),
 ];

@@ -1,6 +1,7 @@
 import 'dart:async';
-
+import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rentverse1/misc/colors.dart';
 import 'package:rentverse1/misc/fonts.dart';
 import 'package:rentverse1/welcomepage.dart';
@@ -17,10 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(
-        Duration(seconds: 3),
-        () => Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => welcomePage())));
+    Timer(Duration(seconds: 3), () => Get.toNamed("/welcome"));
   }
 
   @override
