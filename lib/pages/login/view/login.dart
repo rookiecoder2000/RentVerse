@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  regularFont(13, "Username", colorScheme.inputFieldsLabel,
+                  regularFont(13, "Email", colorScheme.inputFieldsLabel,
                       FontWeight.bold),
                   Container(
                     margin: EdgeInsets.only(top: 10, bottom: 10),
@@ -66,6 +66,10 @@ class _LoginPageState extends State<LoginPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 15),
                       decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.mail,
+                            size: 16,
+                          ),
                           focusColor: colorScheme.purpleMuch,
                           contentPadding: EdgeInsets.symmetric(vertical: 10),
                           border: OutlineInputBorder(
@@ -83,6 +87,10 @@ class _LoginPageState extends State<LoginPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 15),
                       decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.lock,
+                            size: 16,
+                          ),
                           suffixIcon: GestureDetector(
                             onTap: () {
                               setState(() {

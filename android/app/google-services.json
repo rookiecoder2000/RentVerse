@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "191223764001",
+    "project_id": "rentverse-893ff",
+    "storage_bucket": "rentverse-893ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191223764001:android:c6639947745422ce63ff60",
+        "android_client_info": {
+          "package_name": "com.example.rentverse1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191223764001-j4hf2mkvvlnpfhtc8649v83p4fq1pbcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX75_4s0ZFNYrXAkFZPKV15F6TM8fsScA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191223764001-j4hf2mkvvlnpfhtc8649v83p4fq1pbcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -31,4 +31,27 @@ class signUpController extends GetxController {
     }
     return _accountType;
   }
+  //nullChecker for textfields
+
+  bool nullChecker(
+      firstname, lastname, contact, address, occupation, position, birthday) {
+    var isComplete;
+
+    if (firstname == "" ||
+        lastname == "" ||
+        contact == "" ||
+        address == "" ||
+        occupation == "" ||
+        position == "" ||
+        birthday == "") {
+      isComplete = false;
+    } else {
+      isComplete = true;
+    }
+
+    return isComplete;
+  }
+  //Contact number validator
+
+  //auto capitalize textfield inputs
 }

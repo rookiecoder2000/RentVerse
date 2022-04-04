@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:get/get_connect/sockets/src/socket_notifier.dart';
 import 'package:rentverse1/misc/colors.dart';
 import 'package:rentverse1/misc/fontRegular.dart';
@@ -34,7 +36,23 @@ class _SignUpState extends State<SignUp> {
   String _accountType = "";
   //textfield controllers
   final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _ageController = TextEditingController();
+  final _contactNumberController = TextEditingController();
+  final _completeAddressController = TextEditingController();
+  final _occupationController = TextEditingController();
+  final _positionController = TextEditingController();
+  bool _isFilledUp = false;
   //Controller
+  bool _obscureText = true;
+  bool _obscureText2 = true;
+  //date
+  DateTime _dateTime = DateTime.now();
+  String _formattedDate = "";
+  var age;
+  var gender;
+  var day, year, month;
+  var hint = "mm/dd/yyyy";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -256,50 +274,469 @@ class _SignUpState extends State<SignUp> {
               //SECOND PAGE
               Container(
                 child: Container(
-                  child: Column(
-                    children: [
-                      TextField(
-                          keyboardType: TextInputType.name,
-                          textInputAction: TextInputAction.done,
-                          controller: _firstNameController,
-                          decoration: InputDecoration(
-                              hintText: "hint",
-                              labelText: "Firstname",
-                              prefixIcon: Icon(Icons.mail),
-                              border: OutlineInputBorder(),
-                              suffixIcon: _firstNameController.text.isEmpty
-                                  ? Container(
-                                      width: 0,
-                                    )
-                                  : IconButton(
-                                      onPressed: () =>
-                                          _firstNameController.clear(),
-                                      icon: Icon(Icons.close))))
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 30,
+                        ),
+                        titleHugeFont(20, "Please enter credentials",
+                            colorScheme.activeStateMain),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Container(
+                          height: 60,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 70, vertical: 10),
+                          child: TextField(
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.done,
+                              controller: _firstNameController,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelText: "Firstname",
+                                border: OutlineInputBorder(),
+                              )),
+                        ),
+                        Container(
+                          height: 60,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 70, vertical: 10),
+                          child: TextField(
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.done,
+                              controller: _lastNameController,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelText: "Last Name",
+                                border: OutlineInputBorder(),
+                              )),
+                        ),
+                        Container(
+                          height: 60,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 70, vertical: 10),
+                          child: TextField(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(11)
+                              ],
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                              controller: _contactNumberController,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelText: "Contact Number",
+                                border: OutlineInputBorder(),
+                              )),
+                        ),
+                        Container(
+                          height: 60,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 70, vertical: 10),
+                          child: TextField(
+                              keyboardType: TextInputType.streetAddress,
+                              textInputAction: TextInputAction.done,
+                              controller: _completeAddressController,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelText: "Complete Address",
+                                border: OutlineInputBorder(),
+                              )),
+                        ),
+                        Container(
+                          height: 60,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 70, vertical: 10),
+                          child: TextField(
+                              textInputAction: TextInputAction.done,
+                              controller: _occupationController,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelText: "Occupation",
+                                border: OutlineInputBorder(),
+                              )),
+                        ),
+                        Container(
+                          height: 60,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 70, vertical: 10),
+                          child: TextField(
+                              textInputAction: TextInputAction.done,
+                              controller: _positionController,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelText: "Position",
+                                border: OutlineInputBorder(),
+                              )),
+                        ),
+                        Container(
+                          height: 60,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 70, vertical: 10),
+                          child: TextField(
+                              readOnly: true,
+                              controller: _ageController,
+                              decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                  onPressed: (() async {
+                                    //
+                                    DateTime? _birthDate = await showDatePicker(
+                                        context: context,
+                                        initialDate: _dateTime,
+                                        firstDate: DateTime(1900),
+                                        lastDate: DateTime.now());
+
+                                    if (_birthDate != null) {
+                                      setState(() {
+                                        final DateFormat formatter =
+                                            DateFormat('MM/dd/yyyy');
+
+                                        _formattedDate =
+                                            formatter.format(_birthDate);
+                                        hint = _formattedDate;
+                                        int currentYear = _dateTime.year;
+                                        day = int.parse(DateFormat("dd")
+                                            .format(_birthDate));
+                                        year = int.parse(DateFormat("yyyy")
+                                            .format(_birthDate));
+                                        month = int.parse(DateFormat("MM")
+                                            .format(_birthDate));
+
+                                        age = currentYear - year;
+                                        if (age >= 18) {
+                                          _ageController.text = age.toString();
+                                        } else {
+                                          Get.defaultDialog(
+                                              title: "Age Inappropriate",
+                                              middleText:
+                                                  "Age must be at least 18+.",
+                                              textConfirm: "Got it",
+                                              confirmTextColor: Colors.white,
+                                              radius: 10,
+                                              buttonColor: Colors.lightGreen,
+                                              onConfirm: () {
+                                                Get.back();
+                                              });
+                                        }
+                                      });
+                                    }
+                                  }),
+                                  icon: Icon(
+                                    Icons.calendar_month,
+                                    size: 16,
+                                  ),
+                                ),
+                                isDense: true,
+                                labelText: "Age",
+                                border: OutlineInputBorder(),
+                              )),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                    minimumSize: Size(120, 35),
+                                    textStyle: TextStyle(
+                                        color: colorScheme.activeStateMain),
+                                    side: BorderSide(
+                                        width: 1.0,
+                                        color: colorScheme.activeStateMain)),
+                                onPressed: () {
+                                  _pageViewController.previousPage(
+                                      duration: Duration(milliseconds: 1000),
+                                      curve: Curves.easeIn);
+                                },
+                                child: Text(
+                                  "Return",
+                                  style: TextStyle(
+                                      color: colorScheme.activeStateMain),
+                                ),
+                              ),
+
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      minimumSize: Size(120, 35),
+                                      primary: colorScheme.purpleMuch,
+                                      side: BorderSide(
+                                          width: 1.0,
+                                          color: colorScheme.activeStateMain)),
+                                  onPressed: () {
+                                    //nullChecker
+                                    _isFilledUp =
+                                        _setLinearProgress.nullChecker(
+                                            _firstNameController.text
+                                                .toString(),
+                                            _lastNameController.text.toString(),
+                                            _contactNumberController.text
+                                                .toString(),
+                                            _completeAddressController.text
+                                                .toString(),
+                                            _occupationController.text
+                                                .toString(),
+                                            _positionController.text.toString(),
+                                            _ageController.text.toString());
+                                    if (_isFilledUp) {
+                                      //storeMethod
+
+                                      _pageViewController.nextPage(
+                                          duration: Duration(milliseconds: 500),
+                                          curve: Curves.easeIn);
+                                    } else {
+                                      Get.defaultDialog(
+                                          title: "Missing Credentials",
+                                          middleText:
+                                              "Please fill up all the fields to continue.",
+                                          textConfirm: "Got it",
+                                          confirmTextColor: Colors.white,
+                                          radius: 10,
+                                          buttonColor: Colors.lightGreen,
+                                          onConfirm: () {
+                                            Get.back();
+                                          });
+                                    }
+                                  },
+                                  child: Text(
+                                    "Continue",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+
+                              //button
+                              //button
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
               //THIRD PAGE
               Container(
-                child: Column(
-                  children: [
-                    //contents of page 3
-                    Text("PAGE 3"),
-                    ElevatedButton(
-                        onPressed: () {
-                          _pageViewController.nextPage(
-                              duration: Duration(milliseconds: 1000),
-                              curve: Curves.easeIn);
-                        },
-                        child: Text("NEXT")),
-                    ElevatedButton(
-                        onPressed: () {
-                          _pageViewController.previousPage(
-                              duration: Duration(milliseconds: 1000),
-                              curve: Curves.easeIn);
-                        },
-                        child: Text("return"))
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      //contents of page 3
+                      Container(
+                        margin: EdgeInsets.only(left: 50, top: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            titleHugeFont(15, "Hang in there,",
+                                colorScheme.activeStateMain),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 150,
+                            height: 150,
+                            child: SvgPicture.asset("assets/images/Done.svg"),
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 50, bottom: 40),
+                            child: titleHugeFont(15, "Almost Done!",
+                                colorScheme.activeStateMain),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20, left: 35),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  titleHugeFont(
+                                      20, "Create ACcount", Colors.white),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 80),
+                              child: TextField(
+                                keyboardType: TextInputType.emailAddress,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white),
+                                decoration: new InputDecoration(
+                                  hintText: 'Email Address',
+                                  hintStyle: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white),
+                                  prefixIcon: Icon(
+                                    Icons.email,
+                                    size: 15,
+                                    color: Colors.white,
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 1.5),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 1.5),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 80),
+                              child: TextField(
+                                obscureText: _obscureText2,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white),
+                                decoration: new InputDecoration(
+                                  hintText: 'Password',
+                                  hintStyle: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white),
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    size: 15,
+                                    color: Colors.white,
+                                  ),
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _obscureText2 = !_obscureText2;
+                                      });
+                                    },
+                                    child: Icon(
+                                      //Ternary
+                                      _obscureText
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 1.5),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 1.5),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 80),
+                              child: TextField(
+                                obscureText: _obscureText,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.white),
+                                decoration: new InputDecoration(
+                                  hintText: 'Re-type password',
+                                  hintStyle: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.white),
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    size: 15,
+                                    color: Colors.white,
+                                  ),
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _obscureText = !_obscureText;
+                                      });
+                                    },
+                                    child: Icon(
+                                      //Ternary
+                                      _obscureText
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 1.5),
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 1.5),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(150, 40),
+                                  primary: Colors.pinkAccent),
+                              onPressed: () {},
+                              child: Text("Confirm"),
+                            ),
+                            // OutlinedButton(
+                            //   style: OutlinedButton.styleFrom(
+                            //       minimumSize: Size(120, 35),
+                            //       textStyle: TextStyle(
+                            //           color: colorScheme.activeStateMain),
+                            //       side: BorderSide(
+                            //           width: 1.0,
+                            //           color: colorScheme.activeStateMain)),
+                            //   onPressed: () {
+                            //     _pageViewController.previousPage(
+                            //         duration: Duration(milliseconds: 1000),
+                            //         curve: Curves.easeIn);
+                            //   },
+                            //   child: Text(
+                            //     "Return",
+                            //     style: TextStyle(
+                            //         color: colorScheme.activeStateMain),
+                            //   ),
+                            // ),
+                            SizedBox(
+                              height: 30,
+                            )
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                            color: colorScheme.interface,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(120))),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],
@@ -309,3 +746,12 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
+
+// suffixIcon: _firstNameController.text.isEmpty
+//                                       ? IconButton(
+//                                           onPressed: () {}, icon: Icon(null))
+//                                       : IconButton(
+//                                           onPressed: () =>
+//                                               _firstNameController.clear(),
+//                                           icon: Icon(Icons.close)
+//                                           )
