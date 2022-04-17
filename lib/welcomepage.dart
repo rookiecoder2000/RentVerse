@@ -49,18 +49,21 @@ class _welcomePageState extends State<welcomePage> {
                   padding: const EdgeInsets.all(40),
                   child: Column(
                     children: [
-                      SvgPicture.asset(
-                        contents[i].image,
-                        height: 300,
+                      Container(
+                        width: 200.0,
+                        child: SvgPicture.asset(
+                          contents[i].image,
+                          height: 300,
+                        ),
                       ),
                       Text(
                         contents[i].title,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: 'Bungee',
-                            fontSize: 25,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.indigo),
+                            color: colorScheme.purpleMuch),
                       ),
                       SizedBox(height: 20),
                       Text(
@@ -98,7 +101,7 @@ class _welcomePageState extends State<welcomePage> {
                 ),
                 onPressed: () {
                   if (currentIndex == contents.length - 1) {
-                    Get.off(LoginPage());
+                    Get.off(() => LoginPage());
                   }
                   _controller.nextPage(
                     duration: Duration(milliseconds: 100),
@@ -106,11 +109,7 @@ class _welcomePageState extends State<welcomePage> {
                   );
                 },
                 style: TextButton.styleFrom(
-                  backgroundColor: colorScheme.activeStateMain,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                )),
+                    backgroundColor: colorScheme.purpleMuch)),
           )
         ],
       ),

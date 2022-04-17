@@ -41,12 +41,15 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Column(
               children: [
-                titleHugeFont(38.0, 'Welcome To', Colors.indigo),
+                // titleHugeFont(34.0, 'Welcome To', colorScheme.purpleMuch),
+                SizedBox(
+                  height: 20.0,
+                ),
                 Container(
                   child: Image.asset(
-                    'assets/images/rentlogo.png',
+                    'assets/images/rentverselogo.png',
                     height: 200.0,
-                    width: 300.0,
+                    width: 200.0,
                   ),
                 ),
                 SizedBox(

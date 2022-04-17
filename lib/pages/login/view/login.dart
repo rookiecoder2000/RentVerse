@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:rentverse1/misc/fonts.dart';
 import 'package:rentverse1/pages/forgot_password.dart';
 import 'package:rentverse1/pages/login/contoller/login_controller.dart';
 import 'package:rentverse1/pages/signup/view/signup.dart';
+import 'package:rentverse1/services/auth.dart';
 import 'package:rentverse1/services/servicedummy.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,6 +19,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+//text editing controllers
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+//user authentication
+
+  // final AuthService _authService = AuthService();
   bool _obscureText = true;
   PageController _pageController = PageController(
     initialPage: 0,
@@ -38,8 +47,8 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                   width: 300,
                   height: 100,
-                  child:
-                      Image(image: AssetImage("assets/images/rentlogo.png"))),
+                  child: Image(
+                      image: AssetImage("assets/images/rentverselogo.png"))),
               SizedBox(
                 height: 40.0,
               ),
@@ -114,7 +123,16 @@ class _LoginPageState extends State<LoginPage> {
                   style: ElevatedButton.styleFrom(
                       minimumSize: Size(130, 40),
                       primary: colorScheme.purpleMuch),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed("/landlord");
+                    // dynamic result = await _authService.anonymousSign();
+                    // if (result == null) {
+                    //   print('error signing in');
+                    // } else {
+                    //   print("signed in");
+                    //   print(result.uid);
+                    // }
+                  },
                   child: Text("Login")),
 
               OutlinedButton(

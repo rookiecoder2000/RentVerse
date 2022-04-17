@@ -408,17 +408,13 @@ class _SignUpState extends State<SignUp> {
                                         if (age >= 18) {
                                           _ageController.text = age.toString();
                                         } else {
-                                          Get.defaultDialog(
-                                              title: "Age Inappropriate",
-                                              middleText:
-                                                  "Age must be at least 18+.",
-                                              textConfirm: "Got it",
-                                              confirmTextColor: Colors.white,
-                                              radius: 10,
-                                              buttonColor: Colors.lightGreen,
-                                              onConfirm: () {
-                                                Get.back();
-                                              });
+                                          Get.snackbar("Age Inappropriate",
+                                              "PAge must be at least 18+.",
+                                              snackPosition: SnackPosition.TOP,
+                                              duration:
+                                                  Duration(milliseconds: 3000),
+                                              backgroundColor: Colors.redAccent,
+                                              colorText: Colors.white);
                                         }
                                       });
                                     }
@@ -487,17 +483,13 @@ class _SignUpState extends State<SignUp> {
                                           duration: Duration(milliseconds: 500),
                                           curve: Curves.easeIn);
                                     } else {
-                                      Get.defaultDialog(
-                                          title: "Missing Credentials",
-                                          middleText:
-                                              "Please fill up all the fields to continue.",
-                                          textConfirm: "Got it",
-                                          confirmTextColor: Colors.white,
-                                          radius: 10,
-                                          buttonColor: Colors.lightGreen,
-                                          onConfirm: () {
-                                            Get.back();
-                                          });
+                                      Get.snackbar("Missing Credentials",
+                                          "Please fill up all the fields to continue.",
+                                          snackPosition: SnackPosition.TOP,
+                                          duration:
+                                              Duration(milliseconds: 3000),
+                                          backgroundColor: Colors.redAccent,
+                                          colorText: Colors.white);
                                     }
                                   },
                                   child: Text(
@@ -551,6 +543,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ],
                       ),
+
                       SizedBox(
                         height: 10,
                       ),
@@ -703,7 +696,9 @@ class _SignUpState extends State<SignUp> {
                               style: ElevatedButton.styleFrom(
                                   minimumSize: Size(150, 40),
                                   primary: Colors.pinkAccent),
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed("/success");
+                              },
                               child: Text("Confirm"),
                             ),
                             // OutlinedButton(
