@@ -2,18 +2,27 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:rentverse1/full/screens/homeScreen.dart';
+import 'package:rentverse1/full/screens/loginScreen.dart';
+import 'package:rentverse1/full/screens/register_Screen.dart';
+import 'package:rentverse1/full/services/authservice.dart';
 import 'package:rentverse1/pages/forgot_password.dart';
 import 'package:rentverse1/pages/login/view/login.dart';
 import 'package:rentverse1/pages/signup/view/signup.dart';
+import 'package:rentverse1/screens/add_tenants_screen.dart';
+import 'package:rentverse1/screens/allusers.dart';
+
 import 'package:rentverse1/screens/landlords_appointment.dart';
 import 'package:rentverse1/screens/landlords_profile.dart';
+import 'package:rentverse1/screens/landlords_tenantslist.dart';
 import 'package:rentverse1/screens/landlords_ui.dart';
+import 'package:rentverse1/screens/read.dart';
 import 'package:rentverse1/screens/signup_success.dart';
 import 'package:rentverse1/screens/tenants_ui.dart';
 import 'package:rentverse1/splash_screen.dart';
 import 'package:rentverse1/welcomepage.dart';
 
-void main() async {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(
@@ -44,9 +53,29 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/tenant", page: () => HomeScreenTenants()),
         GetPage(name: "/landlordProfile", page: () => LandlordProfile()),
         GetPage(
-            name: "/landlordAppointments", page: () => LandlordAppointment())
+            name: "/landlordAppointments", page: () => LandlordAppointment()),
+        GetPage(name: "/landlordTenantsList", page: () => TenantLists()),
+
+        //testing routes
+        GetPage(name: "/test", page: () => AddTenantsScreen()),
+        GetPage(name: '/listpage', page: () => UserLists()),
+        GetPage(name: '/read', page: () => ReadAuth()),
+        GetPage(name: '/regfull', page: () => RegisterFull()),
+        GetPage(name: '/loginTest', page: () => LoginScreenTest()),
+        GetPage(name: '/homescreenTest', page: () => HomeScreen())
       ],
-      initialRoute: "/splash",
+
+      // initialRoute: "/splash",
+      home: StreamBuilder(
+        //check if already logged in or not
+        stream: AuthService().firebaseAuth.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return HomeScreen();
+          }
+          return RegisterFull();
+        },
+      ),
     );
   }
 }

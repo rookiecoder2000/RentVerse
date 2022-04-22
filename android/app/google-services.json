@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "191223764001",
-    "project_id": "rentverse-893ff",
-    "storage_bucket": "rentverse-893ff.appspot.com"
+    "project_number": "841002885618",
+    "project_id": "finalrentverse",
+    "storage_bucket": "finalrentverse.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:191223764001:android:c6639947745422ce63ff60",
+        "mobilesdk_app_id": "1:841002885618:android:5e3da48357c57271104b6b",
         "android_client_info": {
           "package_name": "com.example.rentverse1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "191223764001-j4hf2mkvvlnpfhtc8649v83p4fq1pbcn.apps.googleusercontent.com",
+          "client_id": "841002885618-k59v0i5a2tdv98e6a2ct9u7h1baqt6ko.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rentverse1",
+            "certificate_hash": "5e8851a6bf4bdd7b21c4145f8399097545a7c440"
+          }
+        },
+        {
+          "client_id": "841002885618-meddlclvrkrcd2jprlsaro9e6rd97b65.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBX75_4s0ZFNYrXAkFZPKV15F6TM8fsScA"
+          "current_key": "AIzaSyCU-XeAjMlMW7A87Xnhh4AzkrOI0SPOUHg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "191223764001-j4hf2mkvvlnpfhtc8649v83p4fq1pbcn.apps.googleusercontent.com",
+              "client_id": "841002885618-meddlclvrkrcd2jprlsaro9e6rd97b65.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:rentverse1/misc/colors.dart';
+import 'package:rentverse1/screens/landlords_manageUnits.dart';
 import 'package:rentverse1/widgets/navigation_widget_landlords.dart';
 
 class HomeScreenLandlords extends StatefulWidget {
@@ -25,11 +26,7 @@ class _HomeScreenLandlordsState extends State<HomeScreenLandlords> {
         child: Text("asd"),
       ),
     ),
-    Container(
-      child: Center(
-        child: Text("HOMqqE"),
-      ),
-    )
+    ManageUnits(),
   ];
 
   @override
@@ -51,12 +48,12 @@ class _HomeScreenLandlordsState extends State<HomeScreenLandlords> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.analytics),
-              label: "Summary",
+              label: "Overview & Analytics",
               backgroundColor: colorScheme.purpleMuch,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: "Boarding houses",
+              label: "Room List",
               backgroundColor: colorScheme.purpleMuch,
             ),
             BottomNavigationBarItem(

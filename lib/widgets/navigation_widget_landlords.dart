@@ -35,7 +35,10 @@ class NavigationDrawerWidgetLandlords extends StatelessWidget {
             SizedBox(
               height: 16,
             ),
-            buildMenuItem(text: 'Current Tenants', icon: Icons.groups),
+            buildMenuItem(
+                text: 'Current Tenants',
+                icon: Icons.groups,
+                onClicked: () => selectedItem(context, 2)),
             SizedBox(
               height: 16,
             ),
@@ -74,6 +77,9 @@ class NavigationDrawerWidgetLandlords extends StatelessWidget {
     switch (i) {
       case 0:
         Get.toNamed("/landlordAppointments");
+        break;
+      case 2:
+        Get.toNamed("/landlordTenantsList");
         break;
     }
   }

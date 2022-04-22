@@ -124,6 +124,21 @@ class _LoginPageState extends State<LoginPage> {
                       minimumSize: Size(130, 40),
                       primary: colorScheme.purpleMuch),
                   onPressed: () {
+                    Get.toNamed("/regfull");
+                    // dynamic result = await _authService.anonymousSign();
+                    // if (result == null) {
+                    //   print('error signing in');
+                    // } else {
+                    //   print("signed in");
+                    //   print(result.uid);
+                    // }
+                  },
+                  child: Text("REGISTER TEST")),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: Size(130, 40),
+                      primary: colorScheme.purpleMuch),
+                  onPressed: () {
                     Get.toNamed("/landlord");
                     // dynamic result = await _authService.anonymousSign();
                     // if (result == null) {
